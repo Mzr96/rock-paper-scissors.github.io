@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         function computerPlay() {
@@ -19,18 +21,45 @@
                 result = `Draw! Both of you choose ${computerSelection.toUpperCase()}`
 
             } else if ((playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissors') ||
-            (playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock') ||
-            (playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')) {
-                result = `You win! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`
+                (playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock') ||
+                (playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')) {
+                result = `You Win! ${playerSelection.toUpperCase()} Beats ${computerSelection.toUpperCase()}`
+
             } else {
-                result = `You win! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`
+                result = `You Lose! ${computerSelection.toUpperCase()} Beats ${playerSelection.toUpperCase()}`
             }
-            
-            console.log(result)
+
+            return result
+
         }
 
-        playRound('rock', 'Scissors')
-        
+        function game() {
+            let computerScore = 0;
+            let playerScore = 0;
+            for (let i = 0; i < 5; i++) {
+                playerChoice = prompt('Rock, Paper or Scissors?');
+                result = playRound(playerChoice, computerPlay());
+                console.log(result)
+                if (result.includes('Win')) {
+                    ++playerScore
+                } else if (result.includes('Lose')) {
+                    ++computerScore
+                }
+            }
+
+            if (playerScore > computerScore) {
+                console.log(`Winnner! ${playerScore} vs ${computerScore}`)
+            } else if (computerScore > playerScore) {
+                console.log(`Loser! ${computerScore} vs ${playerScore}`)
+            } else {
+                console.log(`End in Draw. ${playerScore} vs ${computerScore}`)
+            }
+
+
+        }
+
+        game()
     </script>
 </body>
+
 </html>
