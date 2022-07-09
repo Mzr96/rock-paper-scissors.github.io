@@ -11,9 +11,26 @@
         function computerPlay() {
             const choices = ['Rock', 'Paper', 'Scissors'];
             const computerChoice = choices[Math.floor(Math.random() * choices.length)];
-            console.log(computerChoice)
+            return computerChoice
         }
-        computerPlay()
+
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
+                result = `Draw! Both of you choose ${computerSelection.toUpperCase()}`
+
+            } else if ((playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissors') ||
+            (playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock') ||
+            (playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')) {
+                result = `You win! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`
+            } else {
+                result = `You win! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`
+            }
+            
+            console.log(result)
+        }
+
+        playRound('rock', 'Scissors')
+        
     </script>
 </body>
 </html>
