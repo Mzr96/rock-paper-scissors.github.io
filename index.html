@@ -50,14 +50,16 @@
 
         const gameLogic = function (e) {
             if (gameIsOn) {
+                
                 const playerSelection = e.target['id']
                 const computerSelection = computerPlay()
+                console.log(playerSelection, computerSelection);
                 if (playerSelection === computerSelection) {
                     currentResult.textContent = `Draw! Both of you choose ${computerSelection}`
                     updateScoreboard()
                 } else if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
                     (playerSelection === 'paper' && computerSelection === 'rock') ||
-                    (playerSelection === 'scissor' && computerSelection === 'paper')) {
+                    (playerSelection === 'scissors' && computerSelection === 'paper')) {
                     currentResult.textContent = `You Win! ${playerSelection} Beats ${computerSelection}`
                     playerScore += 1;
                     updateScoreboard()
@@ -75,6 +77,7 @@
         }
 
         btns.forEach(btn => btn.addEventListener('click', gameLogic))
+        
     </script>
 </body>
 
