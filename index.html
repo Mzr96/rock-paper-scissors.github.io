@@ -11,62 +11,69 @@
 <body>
 
     <div class="buttons">
-        <button>Rock</button>
-        <button>Paper</button>
-        <button>Scissors</button>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
     </div>
-    <div class="result">The result is going to displaye here</div>
+    <div class="result current--result">The result is going to displaye here</div>
+    <div class="scoreboard">Scoreboard</div>
+    <div class="result final--result">Final Result</div>
 
     <script>
-        function computerPlay() {
-            const choices = ['Rock', 'Paper', 'Scissors'];
+        let playerScore = 0;
+        let computerScore = 0;
+        let gameIsOn = true;
+        const btns = document.querySelectorAll('.buttons');
+        const scoreboard = document.querySelector('.scoreboard')
+        const finalResult = document.querySelector('.final--result');
+        const currentResult = document.querySelector('.current--result');
+
+        const updateScoreboard = function () {
+            scoreboard.textContent = `Player Score: ${playerScore} \n Computer Score: ${computerScore}`
+        }
+
+        const computerPlay = function () {
+            const choices = ['rock', 'paper', 'scissors'];
             const computerChoice = choices[Math.floor(Math.random() * choices.length)];
             return computerChoice
         }
 
-        function playRound(playerSelection, computerSelection) {
-            if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
-                result = `Draw! Both of you choose ${computerSelection.toUpperCase()}`
-
-            } else if ((playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissors') ||
-                (playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock') ||
-                (playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')) {
-                result = `You Win! ${playerSelection.toUpperCase()} Beats ${computerSelection.toUpperCase()}`
-
-            } else {
-                result = `You Lose! ${computerSelection.toUpperCase()} Beats ${playerSelection.toUpperCase()}`
+        const checkWinner = function () {
+            if (playerScore === 5) {
+                gameIsOn = false;
+                finalResult.textContent = `Winnner! ${playerScore} vs ${computerScore}`
+            } else if (computerScore === 5) {
+                gameIsOn = false;
+                finalResult.textContent = `Loser! ${computerScore} vs ${playerScore}`;
             }
-
-            return result
-
         }
 
-        function game() {
-            let computerScore = 0;
-            let playerScore = 0;
-            
-            playerChoice = prompt('Rock, Paper or Scissors?');
-            result = playRound(playerChoice, computerPlay());
-            console.log(result)
-            if (result.includes('Win')) {
-                    ++playerScore
-            } else if (result.includes('Lose')) {
-                    ++computerScore
-            }
-            
 
-            if (playerScore > computerScore) {
-                console.log(`Winnner! ${playerScore} vs ${computerScore}`)
-            } else if (computerScore > playerScore) {
-                console.log(`Loser! ${computerScore} vs ${playerScore}`)
+        btns.forEach(btn => btn.addEventListener('click', function (e) {
+            if (gameIsOn) {
+                const playerSelection = e.target['id']
+                const computerSelection = computerPlay()
+                if (playerSelection === computerSelection) {
+                    currentResult.textContent = `Draw! Both of you choose ${computerSelection}`
+                    updateScoreboard()
+                } else if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
+                    (playerSelection === 'paper' && computerSelection === 'rock') ||
+                    (playerSelection === 'scissor' && computerSelection === 'paper')) {
+                    currentResult.textContent = `You Win! ${playerSelection} Beats ${computerSelection}`
+                    playerScore += 1;
+                    updateScoreboard()
+                    checkWinner()
+                } else {
+                    currentResult.textContent = `You Lose! ${computerSelection} Beats ${playerSelection}`
+                    computerScore += 1;
+                    updateScoreboard()
+                    checkWinner()
+                }
             } else {
-                console.log(`End in Draw. ${playerScore} vs ${computerScore}`)
+                currentResult.textContent = "The Game Is Already Over!!!"
             }
 
-
-        }
-
-        game()
+        }))
     </script>
 </body>
 
