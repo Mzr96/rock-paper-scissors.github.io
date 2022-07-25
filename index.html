@@ -10,7 +10,12 @@
 
 <body>
 
-    
+    <div class="buttons">
+        <button>Rock</button>
+        <button>Paper</button>
+        <button>Scissors</button>
+    </div>
+    <div class="result">The result is going to displaye here</div>
 
     <script>
         function computerPlay() {
@@ -40,14 +45,14 @@
             let computerScore = 0;
             let playerScore = 0;
             
-                playerChoice = prompt('Rock, Paper or Scissors?');
-                result = playRound(playerChoice, computerPlay());
-                console.log(result)
-                if (result.includes('Win')) {
+            playerChoice = prompt('Rock, Paper or Scissors?');
+            result = playRound(playerChoice, computerPlay());
+            console.log(result)
+            if (result.includes('Win')) {
                     ++playerScore
-                } else if (result.includes('Lose')) {
+            } else if (result.includes('Lose')) {
                     ++computerScore
-                }
+            }
             
 
             if (playerScore > computerScore) {
